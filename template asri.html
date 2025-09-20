@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gombalan Romantis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #d44375;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: pulse 2s infinite;
+        }
+        
+        .heart-btn {
+            background-color: #ff4d8d;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .heart-btn:hover {
+            transform: scale(1.1);
+            background-color: #ff3377;
+        }
+        
+        .message-container {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            min-height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .message {
+            font-size: 1.5rem;
+            color: #333;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .message.show {
+            opacity: 1;
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff4d8d;
+            opacity: 0;
+            animation: fall 5s linear forwards;
+        }
+        
+        footer {
+            margin-top: 30px;
+            color: #d44375;
+            font-size: 0.9rem;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsivitas untuk perangkat mobile */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1>💖 Untuk Pacarku 💖</h1>
+        
+        <p>Klik hati di bawah untuk melihat gombalan romantis!</p>
+        
+        <button class="heart-btn" id="heartButton">💖</button>
+        
+        <div class="message-container">
+            <p class="message" id="message">Pesan gombalan akan muncul di sini...</p>
+        </div>
+    </div>
+    
+    <footer>
+        Dibuat dengan ❤️ untuk pacarku yang tersayang
+    </footer>
+
+    <script>
+        // Daftar gombalan romantis
+        const gombalan = [
+            "Aku bukan programmer yang baik, tapi untukmu aku akan selalu bug yang tidak pernah ingin kau perbaiki.",
+            "Kalau kamu jadi wifi, aku jadi passwordnya. Biar kita selalu connected.",
+            "Aku rela jadi oksigen, agar bisa selalu menemanimu setiap saat.",
+            "Cintaku padamu itu seperti bilangan prima, hanya bisa dibagi dengan satu dan dirinya sendiri.",
+            "Kamu itu seperti matahari, terbitnya saja sudah bikin hari ku cerah.",
+            "Aku bukan Superman, tapi aku akan selalu berusaha menyelamatkanmu dari kesedihan.",
+            "Kalau kamu jadi buku, aku jadi sampulnya. Aku akan selalu melindungimu.",
+            "Aku rela jadi pensil, habis untukmu tapi meninggalkan kenangan yang indah.",
+            "Kamu tahu tidak? Aku ini ahli geologi. Karena setiap lihat kamu, hatiku selalu bergetar.",
+            "Aku bukan photographer, tapi aku bisa selalu membuatmu tersenyum.",
+            "Kamu itu seperti lagu favorit, selalu ingin kudengar berulang-ulang.",
+            "Aku rela jadi kamus, agar setiap waktu bisa dekat denganmu.",
+            "Kalau cinta itu ilmu, maka kamu adalah guru dan aku murid yang selalu ingin belajar.",
+            "Kamu seperti kopi, pahit tapi selalu ku rindu.",
+            "Aku bukan pelangi, tapi aku akan selalu berusaha mewarnai harimu.",
+            "Kamu itu seperti oksigen, tanpa mu aku tidak bisa hidup.",
+            "Aku akan selalu menjadi rem bulanan, yang selalu ada untuk menghentikanmu saat kau melaju terlalu kencang dalam kesedihan.",
+            "Kamu seperti matahari di pagi hari, menghangatkan dan menerangi hariku.",
+            "Aku rela jadi bintang, hanya untuk melihatmu tidur nyenyak.",
+            "Kalau kamu jadi bunga, aku jadi tangkainya. Selalu mendukungmu."
+        ];
+        
+        const heartButton = document.getElementById('heartButton');
+        const messageElement = document.getElementById('message');
+        const heartsContainer = document.getElementById('hearts');
+        
+        // Fungsi untuk menampilkan gombalan acak
+        heartButton.addEventListener('click', function() {
+            // Pilih gombalan acak
+            const randomIndex = Math.floor(Math.random() * gombalan.length);
+            const randomGombalan = gombalan[randomIndex];
+            
+            // Sembunyikan pesan sebelumnya dan tunjukkan yang baru dengan efek fade
+            messageElement.classList.remove('show');
+            
+            setTimeout(() => {
+                messageElement.textContent = randomGombalan;
+                messageElement.classList.add('show');
+                
+                // Buat efek hati berjatuhan
+                createHearts();
+            }, 500);
+        });
+        
+        // Fungsi untuk membuat hati berjatuhan
+        function createHearts() {
+            // Hapus hati sebelumnya (jika ada)
+            const existingHearts = document.querySelectorAll('.heart');
+            existingHearts.forEach(heart => heart.remove());
+            
+            // Buat hati baru
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerHTML = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+                heartsContainer.appendChild(heart);
+                
+                // Hapus elemen setelah animasi selesai
+                setTimeout(() => {
+                    heart.remove();
+                }, 5000);
+            }
+        }
+        
+        // Tampilkan pesan pertama saat halaman dimuat
+        window.addEventListener('load', function() {
+            messageElement.textContent = "Klik hati di atas untuk melihat gombalan romantis!";
+            messageElement.classList.add('show');
+        });
+    </script>
+</body>
+</html>
